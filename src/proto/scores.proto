@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package scores;
+
+service Scores {
+    rpc GetAggregatedCategoryScores(TimeRangeRequest) returns (AggregatedScoresResponse);
+    rpc GetScoresByTicket(TimeRangeRequest) returns (ScoresByTicketResponse);
+    rpc GetOverallQualityScore(TimeRangeRequest) returns (OverallQualityScoreResponse);
+    rpc GetPeriodOverPeriodChange(PeriodComparisonRequest) returns (PeriodChangeResponse);  
+}
+
+message TimeRangeRequest {
+    string startDate = 1;
+    string endDate = 2;
+}
+
+message AggregatedScoresResponse {
+    repeated CategoryScore scores = 1;
+}
+
+message CategoryScore {
+    string date = 1;
+    map<string, double> categoryScores = 2;
+}
+
+message ScoresByTicketResponse {
+    repeated TicketScoreDetail ticketScores = 1;
+}
+
+message TicketScoreDetail {
+    string ticketId = 1;
+    map<string, double> categoryScores = 2;
+}
+
+message OverallQualityScoreResponse {
+    double overallScore = 1;
+    map<string, double> categoryBreakdowns = 2;
+}
+
+message PeriodComparisonRequest {
+    string currentPeriodStart = 1;
+    string currentPeriodEnd = 2;
+    string previousPeriodStart = 3;
+    string previousPeriodEnd = 4;
+}
+
+message PeriodChangeResponse {
+    double overallScoreChange = 1;
+    map<string, double> categoryScoreChanges = 2;
+    bool isImprovement = 3;
+  }
+  
