@@ -1,7 +1,7 @@
 import { ServerErrorResponse, ServerWritableStream } from '@grpc/grpc-js';
 import { TimeRangeRequest } from '../proto/scores/TimeRangeRequest';
 import { findRatingsWithCategories } from '../database/queries/score';
-import { forEach, has, sumBy } from 'lodash';
+import { forEach, sumBy } from 'lodash';
 import { AggregateCategorydScoresResponse } from '../proto/scores/AggregateCategorydScoresResponse';
 
 export async function GetAggregatedCategoryScores(
