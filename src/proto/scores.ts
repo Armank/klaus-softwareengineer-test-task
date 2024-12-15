@@ -9,8 +9,7 @@ type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> 
 
 export interface ProtoGrpcType {
   scores: {
-    AggregatedScoresResponse: MessageTypeDefinition
-    CategoryScore: MessageTypeDefinition
+    AggregateCategorydScoresResponse: MessageTypeDefinition
     OverallQualityScoreResponse: MessageTypeDefinition
     PeriodChangeResponse: MessageTypeDefinition
     PeriodComparisonRequest: MessageTypeDefinition

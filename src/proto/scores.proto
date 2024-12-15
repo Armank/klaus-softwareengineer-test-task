@@ -3,7 +3,7 @@ syntax = "proto3";
 package scores;
 
 service Scores {
-    rpc GetAggregatedCategoryScores(TimeRangeRequest) returns (AggregatedScoresResponse);
+    rpc GetAggregatedCategoryScores(TimeRangeRequest) returns (stream AggregateCategorydScoresResponse);
     rpc GetScoresByTicket(TimeRangeRequest) returns (ScoresByTicketResponse);
     rpc GetOverallQualityScore(TimeRangeRequest) returns (OverallQualityScoreResponse);
     rpc GetPeriodOverPeriodChange(PeriodComparisonRequest) returns (PeriodChangeResponse);  
@@ -14,13 +14,17 @@ message TimeRangeRequest {
     string endDate = 2;
 }
 
-message AggregatedScoresResponse {
-    repeated CategoryScore scores = 1;
-}
+message AggregateCategorydScoresResponse {
+    message CategoryScoreByDate {
+        string timeRange = 1;
+        float score = 2;
+    }
 
-message CategoryScore {
-    string date = 1;
-    map<string, double> categoryScores = 2;
+    int32 id = 1;
+    string name = 2;
+    int32 ratings = 3;
+    float score = 4;
+    repeated CategoryScoreByDate categoryScoreByDate = 5;
 }
 
 message ScoresByTicketResponse {
