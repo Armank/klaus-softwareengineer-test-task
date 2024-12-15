@@ -11,16 +11,19 @@
     "test": "jest --detectOpenHandles --forceExit",
     "generate-server-proto": "bash bash/staticCodeGenerator.sh"
   },
-  "author": "",
+  "author": "Arman Kulbek",
   "license": "ISC",
   "dependencies": {
     "@grpc/grpc-js": "^1.12.4",
     "@grpc/proto-loader": "^0.7.13",
-    "google-protobuf": "^3.21.4"
+    "google-protobuf": "^3.21.4",
+    "knex": "^3.1.0",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@types/jest": "^29.5.14",
+    "@types/knex": "^0.15.2",
     "@types/node": "^22.10.2",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",

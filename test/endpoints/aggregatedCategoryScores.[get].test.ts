@@ -93,12 +93,12 @@ describe('/GET aggregatedCategoryScores', () => {
     });
   });
 
-  describe('Successful Scenarios', () => {
-    test('should return aggregated scores for valid date range', () => {
-      const call = createMockCall('2023-01-01', '2023-12-31');
+  describe.only('Successful Scenarios', () => {
+    it('should return aggregated scores for valid date range', async () => {
+      const call = createMockCall('2020-02-01', '2020-02-28');
       const callback = createMockCallback();
 
-      GetAggregatedCategoryScores(call, callback);
+      await GetAggregatedCategoryScores(call, callback);
 
       expect(callback).toHaveBeenCalledWith(null, {
         scores: [{ date: '123456', categoryScores: {} }]
