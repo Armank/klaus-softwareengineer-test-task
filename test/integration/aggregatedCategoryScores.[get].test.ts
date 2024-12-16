@@ -16,7 +16,7 @@ describe('GetAggregatedCategoryScores gRPC Endpoint', () => {
     mockCall = {
       request: {
         startDate: '2023-01-01',
-        endDate: '2023-12-31'
+        endDate: '2023-01-29'
       },
       write: jest.fn(),
       end: jest.fn(),
@@ -120,7 +120,7 @@ describe('GetAggregatedCategoryScores gRPC Endpoint', () => {
 
       expect(scoreQueries.findRatingsWithCategories).toHaveBeenCalledWith(
         '2023-01-01',
-        '2023-12-31'
+        '2023-01-29'
       );
 
       expect(mockCall.write).toHaveBeenCalledTimes(2);
@@ -152,6 +152,75 @@ describe('GetAggregatedCategoryScores gRPC Endpoint', () => {
           }
         ]
       });
+
+      expect(mockCall.end).toHaveBeenCalled();
+    });
+
+    it('should aggregate ratings by week for periods longer than a month', async () => {
+      // Mock request for a period longer than a month
+      mockCall.request = {
+        startDate: '2024-01-01',
+        endDate: '2024-03-01'
+      };
+
+      // Mock database response
+      const mockRatings = [
+        {
+          id: 1,
+          rating: 4,
+          ticket_id: 101,
+          rating_category_id: 10,
+          reviewer_id: 201,
+          reviewee_id: 301,
+          created_at: '2024-01-05T00:00:00Z',
+          name: 'Customer Service',
+          weight: 1
+        },
+        {
+          id: 2,
+          rating: 5,
+          ticket_id: 102,
+          rating_category_id: 10,
+          reviewer_id: 202,
+          reviewee_id: 302,
+          created_at: '2024-01-12T00:00:00Z',
+          name: 'Customer Service',
+          weight: 1
+        },
+        {
+          id: 3,
+          rating: 3,
+          ticket_id: 103,
+          rating_category_id: 10,
+          reviewer_id: 203,
+          reviewee_id: 303,
+          created_at: '2024-02-15T00:00:00Z',
+          name: 'Customer Service',
+          weight: 1
+        }
+      ];
+
+      (scoreQueries.findRatingsWithCategories as jest.Mock).mockResolvedValue(
+        mockRatings
+      );
+
+      // Call the function
+      await GetAggregatedCategoryScores(mockCall);
+
+      expect(mockCall.write).toHaveBeenCalledWith(
+        expect.objectContaining({
+          id: 10,
+          name: 'Customer Service',
+          ratings: 3,
+          score: 80,
+          categoryScoreByDate: expect.arrayContaining([
+            expect.objectContaining({
+              timeRange: expect.stringMatching(/\d+/),
+              score: expect.any(Number)
+            })
+          ])
+        })
+      );
 
       expect(mockCall.end).toHaveBeenCalled();
     });

@@ -4,6 +4,8 @@ import { findRatingsWithCategories } from '../database/queries/score';
 import { forEach, sumBy } from 'lodash';
 import { AggregateCategorydScoresResponse } from '../proto/scores/AggregateCategorydScoresResponse';
 import { validateDateInputs } from '../service/validators';
+import { isMoreThanAMonth, ONE_DAY_IN_SECONDS } from '../service/utils';
+import { weekNumber } from 'weeknumber';
 
 export async function GetAggregatedCategoryScores(
   call: ServerWritableStream<TimeRangeRequest, AggregateCategorydScoresResponse>
@@ -22,7 +24,15 @@ export async function GetAggregatedCategoryScores(
       endDate
     );
 
-    const categories = aggregateRatingsByCategory(ratingsWithCategories);
+    const isMoreThanMonth = isMoreThanAMonth(
+      new Date(startDate),
+      new Date(endDate)
+    );
+
+    const categories = aggregateRatingsByCategory(
+      ratingsWithCategories,
+      isMoreThanMonth
+    );
 
     writeCategoryScoresToStream(categories, call);
 
@@ -33,11 +43,21 @@ export async function GetAggregatedCategoryScores(
 }
 
 function aggregateRatingsByCategory(
-  ratings: RatingWithCategory[]
+  ratings: RatingWithCategory[],
+  isMoreThanMonth: boolean
 ): GroupedRatings {
   return ratings.reduce((aggregator: GroupedRatings, row) => {
-    const { rating_category_id: categoryId, created_at, name, rating } = row;
-    const date = new Date(created_at).toLocaleDateString('en-EN');
+    const {
+      rating_category_id: categoryId,
+      created_at: createdAt,
+      name,
+      rating
+    } = row;
+
+    const createdAtDate = new Date(createdAt);
+    const date = isMoreThanMonth
+      ? weekNumber(createdAtDate).toString()
+      : createdAtDate.toLocaleDateString('en-EN');
 
     if (!aggregator[categoryId]) {
       aggregator[categoryId] = {
