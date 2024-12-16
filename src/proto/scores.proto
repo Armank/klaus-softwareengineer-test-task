@@ -42,15 +42,11 @@ message OverallQualityScoreResponse {
 }
 
 message PeriodComparisonRequest {
-    string currentPeriodStart = 1;
-    string currentPeriodEnd = 2;
-    string previousPeriodStart = 3;
-    string previousPeriodEnd = 4;
+    TimeRangeRequest selectedPeriod = 1;
+    TimeRangeRequest previousPeriod = 2;
 }
 
 message PeriodChangeResponse {
-    double overallScoreChange = 1;
-    map<string, double> categoryScoreChanges = 2;
-    bool isImprovement = 3;
+    double scoreChange = 1;
   }
   
