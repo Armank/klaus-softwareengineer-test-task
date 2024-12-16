@@ -1,14 +1,21 @@
 // Original file: src/proto/scores.proto
 
-import type {
-  TicketScoreDetail as _scores_TicketScoreDetail,
-  TicketScoreDetail__Output as _scores_TicketScoreDetail__Output
-} from '../scores/TicketScoreDetail';
+export interface _scores_ScoresByTicketResponse_CategoryScore {
+  name?: string;
+  score?: number | string;
+}
+
+export interface _scores_ScoresByTicketResponse_CategoryScore__Output {
+  name?: string;
+  score?: number;
+}
 
 export interface ScoresByTicketResponse {
-  ticketScores?: _scores_TicketScoreDetail[];
+  ticketId?: number;
+  categoryScores?: _scores_ScoresByTicketResponse_CategoryScore[];
 }
 
 export interface ScoresByTicketResponse__Output {
-  ticketScores?: _scores_TicketScoreDetail__Output[];
+  ticketId?: number;
+  categoryScores?: _scores_ScoresByTicketResponse_CategoryScore__Output[];
 }

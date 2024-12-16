@@ -3,6 +3,7 @@ import { TimeRangeRequest } from '../proto/scores/TimeRangeRequest';
 import { findRatingsWithCategories } from '../database/queries/score';
 import { forEach, sumBy } from 'lodash';
 import { AggregateCategorydScoresResponse } from '../proto/scores/AggregateCategorydScoresResponse';
+import { validateDateInputs } from '../service/validators';
 
 export async function GetAggregatedCategoryScores(
   call: ServerWritableStream<TimeRangeRequest, AggregateCategorydScoresResponse>
@@ -28,22 +29,6 @@ export async function GetAggregatedCategoryScores(
     call.end();
   } catch (error: any) {
     handleError(error, call);
-  }
-}
-
-function validateDateInputs(startDate: string, endDate: string): void {
-  const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/;
-
-  if (!isoDateRegex.test(startDate)) {
-    throw new Error('Invalid startDate format. Expected format: YYYY-MM-DD.');
-  }
-
-  if (!isoDateRegex.test(endDate)) {
-    throw new Error('Invalid endDate format. Expected format: YYYY-MM-DD.');
-  }
-
-  if (new Date(startDate) > new Date(endDate)) {
-    throw new Error('Start date cannot be later than endDate.');
   }
 }
 

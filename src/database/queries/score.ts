@@ -7,13 +7,53 @@ export async function findRatingsWithCategories(
   return knex.raw(
     `
       SELECT *
-      FROM ratings as r
-      LEFT JOIN rating_categories as rc
-      ON r.rating_category_id = rc.id
+      FROM ratings AS r
+      LEFT JOIN rating_categories rc
+      ON (r.rating_category_id = rc.id)
       WHERE r.created_at >= ?
       AND r.created_at <= ?
       ORDER BY r.created_at
     `,
+    [startDate, endDate]
+  );
+}
+
+export async function findTicketsWithCategories(
+  startDate: string,
+  endDate: string
+) {
+  // return knex.raw(
+  //   `
+  //   SELECT
+  //   t.id AS ticket_id,
+  //   r.id AS rating_id,
+  //   r.rating AS rating_value,
+  //   rc.name AS rating_category_name
+  //   FROM tickets t
+  //   JOIN ratings r ON (t.id = r.ticket_id)
+  //   JOIN rating_categories rc ON (r.rating_category_id = rc.id)
+  //   WHERE t.created_at >= ?
+  //   AND t.created_at <= ?
+  //   ORDER BY t.created_at
+  // `,
+  //   [startDate, endDate]
+  // );
+
+  return knex.raw(
+    `
+    SELECT
+    t.id AS ticket_id,
+    rc.name AS category_name,
+    SUM(r.rating * rc.weight) AS category_score,
+    SUM(rc.weight) AS total_weight
+    FROM tickets t
+    JOIN ratings r ON t.id = r.ticket_id
+    JOIN rating_categories rc ON r.rating_category_id = rc.id
+    WHERE r.created_at >= ?
+      AND r.created_at <= ?
+    GROUP BY t.id, rc.name
+    ORDER BY t.id, rc.name;
+  `,
     [startDate, endDate]
   );
 }

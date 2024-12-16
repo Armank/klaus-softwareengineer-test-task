@@ -7,7 +7,7 @@ import * as scoreQueries from '../../src/database/queries/score';
 // Mock the database query function
 jest.mock('../../src/database/queries/score');
 
-describe('/GET aggregatedCategoryScores', () => {
+describe('GetAggregatedCategoryScores gRPC Endpoint', () => {
   // const createMockCall = (
   //   startDate: string,
   //   endDate: string

@@ -4,7 +4,7 @@ package scores;
 
 service Scores {
     rpc GetAggregatedCategoryScores(TimeRangeRequest) returns (stream AggregateCategorydScoresResponse);
-    rpc GetScoresByTicket(TimeRangeRequest) returns (ScoresByTicketResponse);
+    rpc GetScoresByTicket(TimeRangeRequest) returns (stream ScoresByTicketResponse);
     rpc GetOverallQualityScore(TimeRangeRequest) returns (OverallQualityScoreResponse);
     rpc GetPeriodOverPeriodChange(PeriodComparisonRequest) returns (PeriodChangeResponse);  
 }
@@ -28,12 +28,13 @@ message AggregateCategorydScoresResponse {
 }
 
 message ScoresByTicketResponse {
-    repeated TicketScoreDetail ticketScores = 1;
-}
+    message CategoryScore {
+        string name = 1;
+        float score = 2;
+      }
 
-message TicketScoreDetail {
-    string ticketId = 1;
-    map<string, double> categoryScores = 2;
+      int32 ticketId = 1;
+      repeated CategoryScore categoryScores = 2;    
 }
 
 message OverallQualityScoreResponse {

@@ -15,7 +15,6 @@ export interface ProtoGrpcType {
     PeriodComparisonRequest: MessageTypeDefinition
     Scores: SubtypeConstructor<typeof grpc.Client, _scores_ScoresClient> & { service: _scores_ScoresDefinition }
     ScoresByTicketResponse: MessageTypeDefinition
-    TicketScoreDetail: MessageTypeDefinition
     TimeRangeRequest: MessageTypeDefinition
   }
 }

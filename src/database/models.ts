@@ -13,3 +13,14 @@ type RatingCategory = {
   name: string;
   weight: number;
 };
+
+type Ticket = {
+  id: number;
+  text: string;
+  createdAt: Date;
+};
+
+type User = {
+  id: number;
+  name: string;
+};
