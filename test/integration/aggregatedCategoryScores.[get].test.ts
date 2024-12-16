@@ -8,19 +8,6 @@ import * as scoreQueries from '../../src/database/queries/score';
 jest.mock('../../src/database/queries/score');
 
 describe('GetAggregatedCategoryScores gRPC Endpoint', () => {
-  // const createMockCall = (
-  //   startDate: string,
-  //   endDate: string
-  // ): ServerUnaryCall<TimeRangeRequest, AggregatedScoresResponse> => {
-  //   return {
-  //     request: { startDate, endDate }
-  //   } as ServerUnaryCall<TimeRangeRequest, AggregatedScoresResponse>;
-  // };
-
-  // const createMockCallback = () => {
-  //   return jest.fn() as unknown as sendUnaryData<AggregatedScoresResponse>;
-  // };
-
   let mockCall: jest.Mocked<
     ServerWritableStream<TimeRangeRequest, AggregateCategorydScoresResponse>
   >;

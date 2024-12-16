@@ -1,10 +1,39 @@
-import { sendUnaryData, ServerUnaryCall } from '@grpc/grpc-js';
+import {
+  sendUnaryData,
+  ServerErrorResponse,
+  ServerUnaryCall
+} from '@grpc/grpc-js';
 import { TimeRangeRequest } from '../proto/scores/TimeRangeRequest';
 import { OverallQualityScoreResponse } from '../proto/scores/OverallQualityScoreResponse';
+import { validateDateInputs } from '../service/validators';
+import { getOverallQualityScoreForPeriod } from '../database/queries/score';
 
-export function GetOverallQualityScore(
+export async function GetOverallQualityScore(
   call: ServerUnaryCall<TimeRangeRequest, OverallQualityScoreResponse>,
   callback: sendUnaryData<OverallQualityScoreResponse>
 ) {
-  callback(null, { overallScore: '1', categoryBreakdowns: {} });
+  try {
+    const { startDate, endDate } = call.request;
+
+    if (!startDate || !endDate) {
+      throw new Error('Both startDate and endDate must be provided.');
+    }
+
+    validateDateInputs(startDate, endDate);
+
+    const overallScore = await getOverallQualityScoreForPeriod(
+      startDate,
+      endDate
+    );
+
+    callback(null, { overallScore });
+  } catch (error: any) {
+    callback(
+      {
+        message: error.message,
+        code: error.code
+      } as ServerErrorResponse,
+      null
+    );
+  }
 }

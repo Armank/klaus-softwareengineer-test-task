@@ -17,20 +17,20 @@ message TimeRangeRequest {
 message AggregateCategorydScoresResponse {
     message CategoryScoreByDate {
         string timeRange = 1;
-        float score = 2;
+        double score = 2;
     }
 
     int32 id = 1;
     string name = 2;
     int32 ratings = 3;
-    float score = 4;
+    double score = 4;
     repeated CategoryScoreByDate categoryScoreByDate = 5;
 }
 
 message ScoresByTicketResponse {
     message CategoryScore {
         string name = 1;
-        float score = 2;
+        double score = 2;
       }
 
       int32 ticketId = 1;
@@ -39,7 +39,6 @@ message ScoresByTicketResponse {
 
 message OverallQualityScoreResponse {
     double overallScore = 1;
-    map<string, double> categoryBreakdowns = 2;
 }
 
 message PeriodComparisonRequest {

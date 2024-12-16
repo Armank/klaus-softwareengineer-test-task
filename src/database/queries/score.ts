@@ -10,11 +10,11 @@ export async function findRatingsWithCategories(
       FROM ratings AS r
       LEFT JOIN rating_categories rc
       ON (r.rating_category_id = rc.id)
-      WHERE r.created_at >= ?
-      AND r.created_at <= ?
+      WHERE r.created_at >= :startDate
+      AND r.created_at <= :endDate
       ORDER BY r.created_at
     `,
-    [startDate, endDate]
+    { startDate, endDate }
   );
 }
 
@@ -49,11 +49,36 @@ export async function findTicketsWithCategories(
     FROM tickets t
     JOIN ratings r ON t.id = r.ticket_id
     JOIN rating_categories rc ON r.rating_category_id = rc.id
-    WHERE r.created_at >= ?
-      AND r.created_at <= ?
+    WHERE r.created_at >= :startDate
+      AND r.created_at <= :endDate
     GROUP BY t.id, rc.name
     ORDER BY t.id, rc.name;
   `,
-    [startDate, endDate]
+    { startDate, endDate }
   );
+}
+
+export async function getOverallQualityScoreForPeriod(
+  startDate: string,
+  endDate: string
+) {
+  const [row] = await knex.raw(
+    `
+    SELECT
+    ROUND(
+        (SUM(r.rating * rc.weight) / SUM(rc.weight * 5)) * 100,
+        2
+    ) AS overall_quality_score
+    FROM
+        ratings r
+    JOIN
+        rating_categories rc ON r.rating_category_id = rc.id
+    WHERE
+        r.created_at >= :startDate
+        AND r.created_at <= :endDate;
+  `,
+    { startDate, endDate }
+  );
+
+  return row?.overall_quality_score || 0;
 }
