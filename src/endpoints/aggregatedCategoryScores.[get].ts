@@ -1,11 +1,11 @@
 import { ServerErrorResponse, ServerWritableStream } from '@grpc/grpc-js';
-import { TimeRangeRequest } from '../proto/scores/TimeRangeRequest';
 import { findRatingsWithCategories } from '../database/queries/score';
 import { forEach, sumBy } from 'lodash';
-import { AggregateCategorydScoresResponse } from '../proto/scores/AggregateCategorydScoresResponse';
 import { validateDateInputs } from '../service/validators';
 import { isMoreThanAMonth, ONE_DAY_IN_SECONDS } from '../service/utils';
 import { weekNumber } from 'weeknumber';
+import { TimeRangeRequest } from '../../proto/scores/TimeRangeRequest';
+import { AggregateCategorydScoresResponse } from '../../proto/scores/AggregateCategorydScoresResponse';
 
 export async function GetAggregatedCategoryScores(
   call: ServerWritableStream<TimeRangeRequest, AggregateCategorydScoresResponse>

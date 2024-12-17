@@ -1,11 +1,11 @@
 {
   "name": "klaus-softwareengineer-test-task",
   "version": "1.0.0",
-  "description": "As a test task for [Klaus](https://www.klausapp.com) software engineering position we ask our candidates to build a small [gRPC](https://grpc.io) service using language of their choice. Preferred language for new services in Klaus is [Go](https://golang.org).",
+  "description": "Klaus home assignment",
   "main": "app.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "dev": "ts-node src/server.ts",
     "lint": "eslint",
     "test": "jest --detectOpenHandles --forceExit",

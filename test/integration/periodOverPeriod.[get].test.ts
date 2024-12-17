@@ -1,9 +1,8 @@
 import { ServerUnaryCall, sendUnaryData } from '@grpc/grpc-js';
 import { GetPeriodOverPeriodChange } from '../../src/endpoints/periodOverPeriodChange.[get]';
 import { getOverallQualityScoreForPeriod } from '../../src/database/queries/score';
-import * as validators from '../../src/service/validators';
-import { PeriodComparisonRequest } from '../../src/proto/scores/PeriodComparisonRequest';
-import { PeriodChangeResponse } from '../../src/proto/scores/PeriodChangeResponse';
+import { PeriodComparisonRequest } from '../../proto/scores/PeriodComparisonRequest';
+import { PeriodChangeResponse } from '../../proto/scores/PeriodChangeResponse';
 
 jest.mock('../../src/database/queries/score');
 jest.mock('../../src/service/validators');

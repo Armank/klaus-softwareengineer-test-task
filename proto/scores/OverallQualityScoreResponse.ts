@@ -1,4 +1,4 @@
-// Original file: src/proto/scores.proto
+// Original file: proto/scores.proto
 
 
 export interface OverallQualityScoreResponse {
