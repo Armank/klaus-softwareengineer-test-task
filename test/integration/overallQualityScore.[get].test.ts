@@ -2,8 +2,8 @@ import { ServerUnaryCall, sendUnaryData } from '@grpc/grpc-js';
 import { GetOverallQualityScore } from '../../src/endpoints/overallQualityScore.[get]';
 import * as scoreQueries from '../../src/database/queries/score';
 import * as validators from '../../src/service/validators';
-import { TimeRangeRequest } from '../../proto/scores/TimeRangeRequest';
-import { OverallQualityScoreResponse } from '../../proto/scores/OverallQualityScoreResponse';
+import { OverallQualityScoreResponse } from '../../src/proto/scores/OverallQualityScoreResponse';
+import { TimeRangeRequest } from '../../src/proto/scores/TimeRangeRequest';
 
 jest.mock('../../src/database/queries/score');
 jest.mock('../../src/service/validators');

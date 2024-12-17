@@ -4,8 +4,8 @@ import { forEach, sumBy } from 'lodash';
 import { validateDateInputs } from '../service/validators';
 import { isMoreThanAMonth, ONE_DAY_IN_SECONDS } from '../service/utils';
 import { weekNumber } from 'weeknumber';
-import { TimeRangeRequest } from '../../proto/scores/TimeRangeRequest';
-import { AggregateCategorydScoresResponse } from '../../proto/scores/AggregateCategorydScoresResponse';
+import { TimeRangeRequest } from '../proto/scores/TimeRangeRequest';
+import { AggregateCategorydScoresResponse } from '../proto/scores/AggregateCategorydScoresResponse';
 
 export async function GetAggregatedCategoryScores(
   call: ServerWritableStream<TimeRangeRequest, AggregateCategorydScoresResponse>

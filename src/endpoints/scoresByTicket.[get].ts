@@ -1,8 +1,8 @@
 import { ServerErrorResponse, ServerWritableStream } from '@grpc/grpc-js';
 import { validateDateInputs } from '../service/validators';
 import { findTicketsWithCategories } from '../database/queries/score';
-import { TimeRangeRequest } from '../../proto/scores/TimeRangeRequest';
-import { ScoresByTicketResponse } from '../../proto/scores/ScoresByTicketResponse';
+import { ScoresByTicketResponse } from '../proto/scores/ScoresByTicketResponse';
+import { TimeRangeRequest } from '../proto/scores/TimeRangeRequest';
 
 export async function GetScoresByTicket(
   call: ServerWritableStream<TimeRangeRequest, ScoresByTicketResponse>

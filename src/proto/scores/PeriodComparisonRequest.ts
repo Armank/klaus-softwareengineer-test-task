@@ -1,4 +1,4 @@
-// Original file: proto/scores.proto
+// Original file: src/proto/scores.proto
 
 import type { TimeRangeRequest as _scores_TimeRangeRequest, TimeRangeRequest__Output as _scores_TimeRangeRequest__Output } from '../scores/TimeRangeRequest';
 

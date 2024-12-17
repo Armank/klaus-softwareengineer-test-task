@@ -1,4 +1,4 @@
-// Original file: proto/scores.proto
+// Original file: src/proto/scores.proto
 
 
 export interface PeriodChangeResponse {

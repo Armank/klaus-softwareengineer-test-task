@@ -5,8 +5,8 @@ import {
 } from '@grpc/grpc-js';
 import { validateDateInputs } from '../service/validators';
 import { getOverallQualityScoreForPeriod } from '../database/queries/score';
-import { TimeRangeRequest } from '../../proto/scores/TimeRangeRequest';
-import { OverallQualityScoreResponse } from '../../proto/scores/OverallQualityScoreResponse';
+import { TimeRangeRequest } from '../proto/scores/TimeRangeRequest';
+import { OverallQualityScoreResponse } from '../proto/scores/OverallQualityScoreResponse';
 
 export async function GetOverallQualityScore(
   call: ServerUnaryCall<TimeRangeRequest, OverallQualityScoreResponse>,

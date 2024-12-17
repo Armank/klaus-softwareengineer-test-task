@@ -1,8 +1,8 @@
 import { ServerWritableStream } from '@grpc/grpc-js/build/src/server-call';
 import { GetAggregatedCategoryScores } from '../../src/endpoints/aggregatedCategoryScores.[get]';
 import * as scoreQueries from '../../src/database/queries/score';
-import { TimeRangeRequest } from '../../proto/scores/TimeRangeRequest';
-import { AggregateCategorydScoresResponse } from '../../proto/scores/AggregateCategorydScoresResponse';
+import { AggregateCategorydScoresResponse } from '../../src/proto/scores/AggregateCategorydScoresResponse';
+import { TimeRangeRequest } from '../../src/proto/scores/TimeRangeRequest';
 
 // Mock the database query function
 jest.mock('../../src/database/queries/score');

@@ -2,8 +2,8 @@ import { ServerWritableStream } from '@grpc/grpc-js';
 import { GetScoresByTicket } from '../../src/endpoints/scoresByTicket.[get]';
 import * as scoreQueries from '../../src/database/queries/score';
 import * as validators from '../../src/service/validators';
-import { TimeRangeRequest } from '../../proto/scores/TimeRangeRequest';
-import { ScoresByTicketResponse } from '../../proto/scores/ScoresByTicketResponse';
+import { ScoresByTicketResponse } from '../../src/proto/scores/ScoresByTicketResponse';
+import { TimeRangeRequest } from '../../src/proto/scores/TimeRangeRequest';
 
 jest.mock('../../src/database/queries/score');
 jest.mock('../../src/service/validators');

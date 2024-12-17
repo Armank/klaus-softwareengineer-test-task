@@ -5,9 +5,9 @@ import {
 } from '@grpc/grpc-js';
 import { getOverallQualityScoreForPeriod } from '../database/queries/score';
 import { validateDateInputs } from '../service/validators';
-import { PeriodChangeResponse } from '../../proto/scores/PeriodChangeResponse';
-import { PeriodComparisonRequest } from '../../proto/scores/PeriodComparisonRequest';
-import { TimeRangeRequest } from '../../proto/scores/TimeRangeRequest';
+import { PeriodChangeResponse } from '../proto/scores/PeriodChangeResponse';
+import { PeriodComparisonRequest } from '../proto/scores/PeriodComparisonRequest';
+import { TimeRangeRequest } from '../proto/scores/TimeRangeRequest';
 
 export async function GetPeriodOverPeriodChange(
   call: ServerUnaryCall<PeriodComparisonRequest, PeriodChangeResponse>,
