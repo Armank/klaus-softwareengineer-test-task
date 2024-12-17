@@ -9,7 +9,7 @@ import { GetOverallQualityScore } from './endpoints/overallQualityScore.[get]';
 import { GetPeriodOverPeriodChange } from './endpoints/periodOverPeriodChange.[get]';
 
 const PORT = 8082;
-const PROTO_FILE = './proto/scores.proto';
+const PROTO_FILE = '../proto/scores.proto';
 const packageDef = protoLoader.loadSync(path.resolve(__dirname, PROTO_FILE));
 const protoDescriptor = grpc.loadPackageDefinition(
   packageDef
