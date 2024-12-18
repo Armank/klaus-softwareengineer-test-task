@@ -1,23 +1,39 @@
-# Use Node.js official image as the base
-FROM node:20-alpine
+ARG NODE_VERSION=20
+FROM node:${NODE_VERSION}-alpine as base
 
-# Set the working directory in the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+FROM base as deps
 
-# Install dependencies
-RUN npm install
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev
 
-# Copy the rest of the application code
+FROM deps as build
+
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci
+
 COPY . .
-
-# Build TypeScript code
 RUN npm run build
 
-# Expose the gRPC server port (e.g., 50051)
-EXPOSE 50051
+FROM base as final
 
-# Start the gRPC server
-CMD ["npm", "start"]
+ENV NODE_ENV production
+
+USER node
+
+COPY package.json .
+
+COPY --from=deps /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app/dist ./dist
+
+COPY database.db .
+
+
+EXPOSE 8082
+
+CMD npm start
