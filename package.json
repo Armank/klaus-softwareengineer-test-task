@@ -4,7 +4,7 @@
   "description": "Klaus home assignment",
   "main": "app.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npx copyfiles -f src/proto/scores.proto dist/src/proto",
     "start": "node dist/src/server.js",
     "dev": "ts-node src/server.ts",
     "lint": "eslint",
@@ -29,6 +29,7 @@
     "@types/knex": "^0.15.2",
     "@types/lodash": "^4.17.13",
     "@types/node": "^22.10.2",
+    "copyfiles": "^2.4.1",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
