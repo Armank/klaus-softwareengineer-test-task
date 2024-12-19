@@ -20,7 +20,15 @@ Use Postman and import [scores.proto](./src/proto/scores.proto) file.
 
 See Endpoints section for example payloads.
 
-# Endpoints
+# Tasks
+
+## Algorithm
+
+Ticket score algorithm that accounts for rating category weights:
+
+$$round({ \sum (categoryWeight*rating) \over \sum (allWeightsUsedInRatings) * maxScore} * 100)$$
+
+## Endpoints
 
 1. GetAggregatedCategoryScores - Aggregated category scores over a period of time
    Example payload:
@@ -30,7 +38,7 @@ See Endpoints section for example payloads.
      "endDate": "2020-01-30"
    }
    ```
-   Example reponse:
+   Example response:
    ```json
    {
      "categoryScoreByDate": [
