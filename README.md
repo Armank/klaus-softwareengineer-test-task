@@ -16,7 +16,8 @@ Server will listen on 0.0.0.0:8082
 
 # How to query endpoints
 
-Use Postman and import scores.proto file.
+Use Postman and import [scores.proto](./src/proto/scores.proto) file.
+
 See Endpoints section for example payloads.
 
 # Endpoints
