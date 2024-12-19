@@ -30,6 +30,20 @@ See Endpoints section for example payloads.
      "endDate": "2020-01-30"
    }
    ```
+   Example reponse:
+   ```json
+   {
+     "categoryScoreByDate": [
+       { "timeRange": "1/1/2020", "score": 54.61538461538461 },
+       { "timeRange": "1/2/2020", "score": 50 },
+       etc.
+     ],
+     "id": 4,
+     "name": "Randomness",
+     "ratings": 799,
+     "score": 49.68710888610764
+   }
+   ```
 2. GetScoresByTicket - Scores by ticket
    Example payload:
 
@@ -50,7 +64,7 @@ See Endpoints section for example payloads.
    }
    ```
 
-4. GetPeriodOverPeriodChang - Period over Period score change
+4. GetPeriodOverPeriodChange - Period over Period score change
    Example payload:
 
    ```json
