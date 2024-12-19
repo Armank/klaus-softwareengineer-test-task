@@ -11,6 +11,7 @@ Server will listen on 0.0.0.0:8082
 ## Docker
 
 `docker-compose up`
+
 Server will listen on 0.0.0.0:8082
 
 # How to query endpoints
